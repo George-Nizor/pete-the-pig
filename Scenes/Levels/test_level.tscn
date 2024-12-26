@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpwb78uo5yk7t"]
+
+[ext_resource type="Script" path="res://Scripts/Levels/test_level.gd" id="1_aovk1"]
+[ext_resource type="PackedScene" uid="uid://c8nse4v5byrci" path="res://Scenes/Characters/player.tscn" id="2_4qgrf"]
+
+[node name="Test_Level" type="Node2D"]
+script = ExtResource("1_aovk1")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(0, 0, 0, 648, 664, 648, 664, 576, 896, 576, 896, 448, 664, 445.99, 664, 384, 640, 384, 640, 321.398, 768, 256, 640, 256, 536, 256, 536, 320, 536, 384, 480, 384, 480, 312, 448, 328, 328, 496, 256, 576, 256, 0)
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D/CollisionPolygon2D"]
+
+[node name="Player" parent="." instance=ExtResource("2_4qgrf")]
+position = Vector2(104, 0)
+floor_max_angle = 1.0472
+floor_snap_length = 3.0
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+drag_horizontal_enabled = true
