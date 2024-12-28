@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PlayerMovementData" load_steps=2 format=3 uid="uid://u3xw5plyx4rg"]
+
+[ext_resource type="Script" path="res://Scripts/Globals/PlayerMovementData.gd" id="1_3bety"]
+
+[resource]
+script = ExtResource("1_3bety")
+speed = 200.0
+acceleration = 50
+friction = 1000
+jump_velocity = -300.0
+gravity_scale = 1.0
+air_resistance = 0
+air_acceleration = 20

@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends DefaultEntity
 
 @export var player_sprite: AnimatedSprite2D
 @export var coyote_jump_timer: Timer
@@ -7,12 +7,18 @@ extends CharacterBody2D
 var air_jump = false
 var just_wall_jumped = false
 var was_wall_normal = Vector2.ZERO
+@onready var camera_2d: Camera2D = $Camera2D
+
+func Player():
+	pass
 
 func _physics_process(delta):
+	
 	apply_gravity(delta)
 	handle_wall_jump()
 	handle_jump()
 	var input_axis = Input.get_axis("move_left", "move_right")
+	handle_camera(input_axis)
 	handle_acceleration(input_axis, delta)
 	handle_air_acceleration(input_axis, delta)
 	apply_friction(input_axis, delta)
@@ -30,6 +36,14 @@ func _physics_process(delta):
 	if just_left_wall:
 		wall_jump_timer.start()
 	update_animations(input_axis)
+
+func handle_camera(input_axis):
+	var pan_speed = 0.01
+	if input_axis:
+		camera_2d.offset.x = lerp(camera_2d.offset.x,80 * input_axis,pan_speed)
+	else:
+		camera_2d.offset.x = lerp(camera_2d.offset.x,0.0,pan_speed / 10)
+		
 
 func apply_gravity(delta):
 	if not is_on_floor():
@@ -63,16 +77,16 @@ func handle_jump():
 func handle_acceleration(input_axis, delta):
 	if not is_on_floor(): return
 	if input_axis != 0:
-		velocity.x = move_toward(velocity.x, movement_data.speed * input_axis, movement_data.acceleration * delta)
+		velocity.x = move_toward(velocity.x, movement_data.speed * input_axis, movement_data.acceleration)
 
 func handle_air_acceleration(input_axis, delta):
 	if is_on_floor(): return
 	if input_axis != 0:
-		velocity.x = move_toward(velocity.x, movement_data.speed * input_axis, movement_data.air_acceleration * delta)
+		velocity.x = move_toward(velocity.x, movement_data.speed * input_axis, movement_data.air_acceleration)
 
 func apply_friction(input_axis, delta):
 	if input_axis == 0 and is_on_floor():
-		velocity.x = move_toward(velocity.x, 0, movement_data.friction * delta)
+		velocity.x = move_toward(velocity.x, 0, movement_data.friction)
 
 func apply_air_resistance(input_axis, delta):
 	if input_axis == 0 and not is_on_floor():
@@ -88,5 +102,6 @@ func update_animations(input_axis):
 	if not is_on_floor():
 		player_sprite.play("jump")
 
-func _on_hazard_detector_area_entered(area:Area2D) -> void:
-	get_tree().reload_current_scene()
+func _on_player_hit_box_area_entered(area: Area2D) -> void:
+	if area.Entity.entity_type == 2 or area.Entity.entity_type == 4:
+		Hitbox.damage(area.Entity.damage)

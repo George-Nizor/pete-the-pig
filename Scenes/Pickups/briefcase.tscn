@@ -1,0 +1,79 @@
+[gd_scene load_steps=11 format=3 uid="uid://dijlaejud5ayq"]
+
+[ext_resource type="Script" path="res://Scripts/Pickups/briefcase.gd" id="1_nuurp"]
+[ext_resource type="Texture2D" uid="uid://shjbuvyjk4a6" path="res://Assets/Sprites/briefcase.png" id="2_c20mq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ika0l"]
+atlas = ExtResource("2_c20mq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46380"]
+atlas = ExtResource("2_c20mq")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ih6hp"]
+atlas = ExtResource("2_c20mq")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_caod3"]
+atlas = ExtResource("2_c20mq")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yf28r"]
+atlas = ExtResource("2_c20mq")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0r6fn"]
+atlas = ExtResource("2_c20mq")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a72pt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ika0l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46380")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ih6hp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_caod3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yf28r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0r6fn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rgxnt"]
+size = Vector2(28, 24)
+
+[node name="Briefcase" type="StaticBody2D"]
+position = Vector2(0, -10)
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_nuurp")
+
+[node name="BriefcaseSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_a72pt")
+autoplay = "default"
+frame_progress = 0.406169
+
+[node name="PickupArea" type="Area2D" parent="."]
+position = Vector2(-3, 16)
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+position = Vector2(3, -18)
+shape = SubResource("RectangleShape2D_rgxnt")
+
+[connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]

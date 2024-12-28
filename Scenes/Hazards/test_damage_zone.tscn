@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bapgdtwx8nje6"]
+
+[ext_resource type="Texture2D" uid="uid://cwtgfo4qjl6xh" path="res://icon.svg" id="1_bshgd"]
+[ext_resource type="Script" path="res://Scripts/Hazards/test_damage_zone.gd" id="1_ojh4x"]
+[ext_resource type="Script" path="res://Scripts/Components/AttackBox.gd" id="2_1j48c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w3yxp"]
+size = Vector2(45, 45)
+
+[node name="Test_Damage_Zone" type="Node2D"]
+script = ExtResource("1_ojh4x")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3.8147e-06, 3.8147e-06)
+scale = Vector2(0.3125, 0.3125)
+texture = ExtResource("1_bshgd")
+
+[node name="AttackBox" type="Area2D" parent="." node_paths=PackedStringArray("Entity")]
+script = ExtResource("2_1j48c")
+Entity = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
+shape = SubResource("RectangleShape2D_w3yxp")

@@ -1,10 +1,12 @@
-[gd_scene load_steps=21 format=3 uid="uid://c8nse4v5byrci"]
+[gd_scene load_steps=24 format=3 uid="uid://c8nse4v5byrci"]
 
 [ext_resource type="Texture2D" uid="uid://cxhh2l8cjex8w" path="res://Assets/Sprites/Idle.png" id="1_pob1h"]
 [ext_resource type="Script" path="res://Scripts/Characters/player.gd" id="1_rlafh"]
-[ext_resource type="Resource" uid="uid://bls15bhtbmj52" path="res://Scripts/Resources/DefaultMovement.tres" id="2_62otm"]
+[ext_resource type="Resource" uid="uid://u3xw5plyx4rg" path="res://Scripts/Resources/fast_move.tres" id="2_86e13"]
 [ext_resource type="Texture2D" uid="uid://bsoo11v3t6hc3" path="res://Assets/Sprites/Jump.png" id="2_fwjce"]
 [ext_resource type="Texture2D" uid="uid://bd4fq03fgcsig" path="res://Assets/Sprites/Running.png" id="3_cslnl"]
+[ext_resource type="Script" path="res://Scripts/Components/HealthComponent.gd" id="6_b4yad"]
+[ext_resource type="Script" path="res://Scripts/Components/HitBox.gd" id="7_epej7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mt645"]
 atlas = ExtResource("1_pob1h")
@@ -118,23 +120,32 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rftqc"]
 size = Vector2(19, 39.75)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_sprite", "coyote_jump_timer", "wall_jump_timer")]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bqjxd"]
+height = 40.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_sprite", "coyote_jump_timer", "wall_jump_timer", "Health", "Hitbox")]
 position = Vector2(0, 1)
+scale = Vector2(0.8, 0.8)
+collision_layer = 2
 script = ExtResource("1_rlafh")
 player_sprite = NodePath("PlayerSprite")
 coyote_jump_timer = NodePath("CoyoteJumpTimer")
 wall_jump_timer = NodePath("WallJumpTimer")
-movement_data = ExtResource("2_62otm")
+movement_data = ExtResource("2_86e13")
+Health = NodePath("PlayerHealth")
+Hitbox = NodePath("PlayerHitBox")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_43xoh")
-animation = &"run"
+animation = &"idle"
 autoplay = "idle"
+frame = 2
+frame_progress = 0.803067
 
 [node name="Player_Collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, -21.125)
+position = Vector2(1.25, -21.125)
 shape = SubResource("RectangleShape2D_rftqc")
 
 [node name="CoyoteJumpTimer" type="Timer" parent="."]
@@ -144,3 +155,21 @@ one_shot = true
 [node name="WallJumpTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="PlayerHealth" type="Node2D" parent="." node_paths=PackedStringArray("Entity")]
+script = ExtResource("6_b4yad")
+Max_Health = 100
+Entity = NodePath("..")
+
+[node name="PlayerHitBox" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("7_epej7")
+health_component = NodePath("../PlayerHealth")
+
+[node name="HitBoxShape" type="CollisionShape2D" parent="PlayerHitBox"]
+position = Vector2(1.25, -21.25)
+shape = SubResource("CapsuleShape2D_bqjxd")
+debug_color = Color(0.999714, 0, 0.10378, 0.42)
+
+[connection signal="area_entered" from="PlayerHitBox" to="." method="_on_player_hit_box_area_entered"]
