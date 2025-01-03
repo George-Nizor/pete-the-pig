@@ -1,0 +1,128 @@
+[gd_scene load_steps=17 format=3 uid="uid://7fow4rxld4ja"]
+
+[ext_resource type="Script" path="res://Scripts/Characters/wolf_enemy.gd" id="1_wmta0"]
+[ext_resource type="Texture2D" uid="uid://upe0x2bvek6c" path="res://Assets/Sprites/WOLF IDLE.png" id="2_mhawm"]
+[ext_resource type="Texture2D" uid="uid://bsasy6q3c60u3" path="res://Assets/Sprites/Wolf RUN.png" id="3_qs7da"]
+[ext_resource type="Script" path="res://Scripts/Components/HealthComponent.gd" id="4_q5kue"]
+[ext_resource type="Script" path="res://Scripts/Components/HitBox.gd" id="5_hslnb"]
+[ext_resource type="Script" path="res://Scripts/Hazards/damage_zone.gd" id="6_lrair"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2s8gp"]
+atlas = ExtResource("2_mhawm")
+region = Rect2(0, 0, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mcysj"]
+atlas = ExtResource("2_mhawm")
+region = Rect2(45, 0, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjo18"]
+atlas = ExtResource("3_qs7da")
+region = Rect2(0, 0, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vi3s3"]
+atlas = ExtResource("3_qs7da")
+region = Rect2(45, 0, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lt4ru"]
+atlas = ExtResource("3_qs7da")
+region = Rect2(90, 0, 45, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8660p"]
+atlas = ExtResource("3_qs7da")
+region = Rect2(135, 0, 45, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tvngm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2s8gp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mcysj")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yjo18")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vi3s3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lt4ru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8660p")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6y81w"]
+size = Vector2(20, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i4mof"]
+size = Vector2(20, 26.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_opqga"]
+size = Vector2(26, 27)
+
+[node name="WolfEnemy" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast_right", "ray_cast_left", "sprite", "Health", "Hitbox")]
+position = Vector2(0, -23)
+collision_layer = 4
+script = ExtResource("1_wmta0")
+ray_cast_right = NodePath("Right")
+ray_cast_left = NodePath("Left")
+sprite = NodePath("WolfSprite")
+Health = NodePath("WolfHealth")
+Hitbox = NodePath("WolfHitbox")
+
+[node name="WolfSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tvngm")
+animation = &"run"
+autoplay = "run"
+
+[node name="WolfHealth" type="Node2D" parent="."]
+script = ExtResource("4_q5kue")
+
+[node name="WolfHitbox" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "Entity")]
+position = Vector2(-2, -25)
+rotation = 3.14159
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("5_hslnb")
+health_component = NodePath("../WolfHealth")
+Entity = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WolfHitbox"]
+position = Vector2(-0.999992, -10)
+rotation = 3.14159
+shape = SubResource("RectangleShape2D_6y81w")
+debug_color = Color(0.913382, 0.290596, 0.067143, 0.42)
+
+[node name="WolfCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9.25)
+shape = SubResource("RectangleShape2D_i4mof")
+
+[node name="Right" type="RayCast2D" parent="."]
+position = Vector2(3, 8)
+target_position = Vector2(17, 0)
+
+[node name="Left" type="RayCast2D" parent="."]
+position = Vector2(-3, 8)
+target_position = Vector2(-16, 0)
+
+[node name="DamageZone" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("6_lrair")
+damage = 50
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageZone"]
+position = Vector2(0, 9.5)
+shape = SubResource("RectangleShape2D_opqga")
+debug_color = Color(0, 0.627627, 0.500104, 0.42)

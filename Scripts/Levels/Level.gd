@@ -24,3 +24,4 @@ func _on_briefcase_picked_up():
 	EventManager.add_score(1)
 	if EventManager.CURRENT_SCORE == objectiveAmount:
 		load_next_level()
+		EventManager.reset_score()

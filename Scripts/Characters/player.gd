@@ -7,12 +7,27 @@ extends DefaultEntity
 var air_jump = false
 var just_wall_jumped = false
 var was_wall_normal = Vector2.ZERO
+var damage = 100
 @onready var camera_2d: Camera2D = $Camera2D
+
+# Knockback Variables
+var knockback_direction
+var in_knockback = false
+
+func _knockback(direction):
+	velocity = Vector2(400,0) * direction
+	move_and_slide()
+	velocity.x = move_toward(velocity.x,0,50.0)
+	in_knockback = false
+	return
 
 func Player():
 	pass
 
 func _physics_process(delta):
+	if in_knockback:
+		_knockback(knockback_direction)
+		bounce()
 	
 	apply_gravity(delta)
 	handle_wall_jump()
@@ -55,8 +70,8 @@ func handle_wall_jump():
 	if wall_jump_timer.time_left > 0.0:
 		wall_normal = was_wall_normal
 	if Input.is_action_just_pressed("jump"):
-		velocity.x = wall_normal.x * movement_data.speed
-		velocity.y = movement_data.jump_velocity
+		velocity.x = wall_normal.x * movement_data.speed * 1.2
+		velocity.y = movement_data.jump_velocity * .8
 		just_wall_jumped = true
 
 func handle_jump():
@@ -90,7 +105,7 @@ func apply_friction(input_axis, delta):
 
 func apply_air_resistance(input_axis, delta):
 	if input_axis == 0 and not is_on_floor():
-		velocity.x = move_toward(velocity.x, 0, movement_data.air_resistance * delta)
+		velocity.x = move_toward(velocity.x, 0, movement_data.air_resistance)
 
 func update_animations(input_axis):
 	if input_axis != 0:
@@ -101,7 +116,35 @@ func update_animations(input_axis):
 	
 	if not is_on_floor():
 		player_sprite.play("jump")
+		
+func bounce():
+	velocity.y = movement_data.jump_velocity * 0.8
+	air_jump = false
+	
 
 func _on_player_hit_box_area_entered(area: Area2D) -> void:
-	if area.Entity.entity_type == 2 or area.Entity.entity_type == 4:
+	var relative_position = global_position.x - area.global_position.x
+	if relative_position < 0:
+		knockback_direction = -1
+	else:
+		knockback_direction = 1
+	if area.has_method("damagezone"):
+		Hitbox.damage(area.damage)
+		entity_damaged()
+		in_knockback = true
+		print(global_position, area.global_position)
+	elif area.Entity.entity_type == 2 or area.Entity.entity_type == 3:
 		Hitbox.damage(area.Entity.damage)
+		entity_damaged()
+
+func player_above(area):
+	return global_position.y > area.global_position.y
+
+func _on_attack_box_area_entered(area: Area2D) -> void:
+	print(player_above(area))
+	print(global_position.y, area.global_position.y)
+	if area.Entity.has_method("Enemy"):
+		if player_above(area):
+			area.Entity.Health.ReduceHealth(damage)
+			bounce()
+		
