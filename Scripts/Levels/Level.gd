@@ -7,7 +7,7 @@ var objectiveAmount: int
 @export var EndLevelScreen: Control
 
 func _ready() -> void:
-	var children = get_children()
+	var children = get_node('Briefcases').get_children()
 	for node in children:
 		if node.has_method("briefcase"):
 			objectiveAmount += 1

@@ -7,6 +7,7 @@ enum entity_type_list {PLAYER, ENEMY, PICKUP, HAZARD}
 @export var Hitbox: HitBoxComponent
 @export var Effects_Player: EffectsPlayer
 @export var SoundPlayer: SoundPlayer
+@export var Collision_Shape: CollisionShape2D
 
 func _ready() -> void:
 	if Health:
@@ -15,6 +16,9 @@ func _ready() -> void:
 		Health.EntityHealed.connect(entity_healed)
 
 func destroy_entity():
+	rotate(240)
+	Collision_Shape.queue_free()
+	await get_tree().create_timer(0.5).timeout
 	queue_free()
 	
 func entity_damaged():

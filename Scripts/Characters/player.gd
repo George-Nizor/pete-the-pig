@@ -8,7 +8,7 @@ var air_jump = false
 var just_wall_jumped = false
 var was_wall_normal = Vector2.ZERO
 var damage = 100
-@onready var camera_2d: Camera2D = $Camera2D
+@export var camera_2d: Camera2D
 
 # Knockback Variables
 var knockback_direction
@@ -23,6 +23,10 @@ func _knockback(direction):
 
 func Player():
 	pass
+	
+func _ready() -> void:
+	# Set Camera bottom limit
+	camera_2d.limit_bottom = get_parent().get_node("BottomBound").global_position.y
 
 func _physics_process(delta):
 	if in_knockback:

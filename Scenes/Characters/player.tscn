@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c8nse4v5byrci"]
+[gd_scene load_steps=27 format=3 uid="uid://c8nse4v5byrci"]
 
 [ext_resource type="Texture2D" uid="uid://cxhh2l8cjex8w" path="res://Assets/Sprites/Idle.png" id="1_pob1h"]
 [ext_resource type="Script" path="res://Scripts/Characters/player.gd" id="1_rlafh"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/Components/HealthComponent.gd" id="6_b4yad"]
 [ext_resource type="Script" path="res://Scripts/Components/HitBox.gd" id="7_epej7"]
 [ext_resource type="Script" path="res://Scripts/Components/EffectsPlayer.gd" id="8_w2knv"]
+[ext_resource type="Script" path="res://Scripts/Components/SoundPlayer.gd" id="9_a4es4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mt645"]
 atlas = ExtResource("1_pob1h")
@@ -127,7 +128,7 @@ size = Vector2(20, 28.75)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ducc5"]
 size = Vector2(20, 8.75)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_sprite", "coyote_jump_timer", "wall_jump_timer", "Health", "Hitbox", "Effects_Player")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_sprite", "coyote_jump_timer", "wall_jump_timer", "Health", "Hitbox", "Effects_Player", "SoundPlayer", "Collision_Shape")]
 position = Vector2(0, 1)
 scale = Vector2(0.8, 0.8)
 collision_layer = 2
@@ -139,6 +140,8 @@ movement_data = ExtResource("2_86e13")
 Health = NodePath("PlayerHealth")
 Hitbox = NodePath("PlayerHitBox")
 Effects_Player = NodePath("EffectsPlayer")
+SoundPlayer = NodePath("SoundPlayer")
+Collision_Shape = NodePath("Player_Collision")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -191,6 +194,9 @@ debug_color = Color(0.159258, 0.637094, 0.289732, 0.42)
 script = ExtResource("8_w2knv")
 sprite = NodePath("../PlayerSprite")
 Character = NodePath("..")
+
+[node name="SoundPlayer" type="Node" parent="."]
+script = ExtResource("9_a4es4")
 
 [connection signal="area_entered" from="PlayerHitBox" to="." method="_on_player_hit_box_area_entered"]
 [connection signal="area_entered" from="AttackBox" to="." method="_on_attack_box_area_entered"]

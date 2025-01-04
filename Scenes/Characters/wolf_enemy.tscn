@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://7fow4rxld4ja"]
+[gd_scene load_steps=18 format=3 uid="uid://7fow4rxld4ja"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/wolf_enemy.gd" id="1_wmta0"]
 [ext_resource type="Texture2D" uid="uid://upe0x2bvek6c" path="res://Assets/Sprites/WOLF IDLE.png" id="2_mhawm"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Components/HealthComponent.gd" id="4_q5kue"]
 [ext_resource type="Script" path="res://Scripts/Components/HitBox.gd" id="5_hslnb"]
 [ext_resource type="Script" path="res://Scripts/Hazards/damage_zone.gd" id="6_lrair"]
+[ext_resource type="Script" path="res://Scripts/Components/EffectsPlayer.gd" id="7_74ucv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2s8gp"]
 atlas = ExtResource("2_mhawm")
@@ -71,7 +72,7 @@ size = Vector2(20, 26.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_opqga"]
 size = Vector2(26, 27)
 
-[node name="WolfEnemy" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast_right", "ray_cast_left", "sprite", "Health", "Hitbox")]
+[node name="WolfEnemy" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast_right", "ray_cast_left", "sprite", "Health", "Hitbox", "Effects_Player", "Collision_Shape")]
 position = Vector2(0, -23)
 collision_layer = 4
 script = ExtResource("1_wmta0")
@@ -80,6 +81,8 @@ ray_cast_left = NodePath("Left")
 sprite = NodePath("WolfSprite")
 Health = NodePath("WolfHealth")
 Hitbox = NodePath("WolfHitbox")
+Effects_Player = NodePath("EffectsPlayer")
+Collision_Shape = NodePath("WolfCollision")
 
 [node name="WolfSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tvngm")
@@ -126,3 +129,8 @@ damage = 50
 position = Vector2(0, 9.5)
 shape = SubResource("RectangleShape2D_opqga")
 debug_color = Color(0, 0.627627, 0.500104, 0.42)
+
+[node name="EffectsPlayer" type="Node" parent="." node_paths=PackedStringArray("sprite", "Character")]
+script = ExtResource("7_74ucv")
+sprite = NodePath("../WolfSprite")
+Character = NodePath("..")
