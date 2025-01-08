@@ -17,6 +17,7 @@ func ReduceHealth(amount):
 	EntityDamaged.emit()
 	if Health <= 0:
 		EntityKilled.emit()
+
 	
 func IncreaseHealth(amount):
 	Health += amount

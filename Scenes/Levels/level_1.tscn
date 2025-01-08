@@ -648,12 +648,6 @@ position = Vector2(274, 83)
 scale = Vector2(2, 2)
 texture = ExtResource("3_5w0dd")
 
-[node name="WolfEnemy" parent="." instance=ExtResource("8_5ds4h")]
-position = Vector2(416, 194)
-
-[node name="WolfEnemy2" parent="." instance=ExtResource("8_5ds4h")]
-position = Vector2(516, 191)
-
 [node name="BottomBound" parent="." instance=ExtResource("9_bsoyw")]
 position = Vector2(1896, 357)
 collision_mask = 2
@@ -661,7 +655,14 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomBound"]
 shape = SubResource("WorldBoundaryShape2D_x7cpm")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="LevelMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_pc2kx")
+volume_db = -6.71
 autoplay = true
 parameters/looping = false
+
+[node name="WolfEnemy" parent="." instance=ExtResource("8_5ds4h")]
+position = Vector2(392, 193)
+
+[node name="WolfEnemy2" parent="." instance=ExtResource("8_5ds4h")]
+position = Vector2(537, 193)

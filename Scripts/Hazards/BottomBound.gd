@@ -11,3 +11,4 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_timer_timeout():
 	Engine.time_scale = 1
 	get_tree().reload_current_scene()
+	EventManager.reset_score()

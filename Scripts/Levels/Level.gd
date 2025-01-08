@@ -12,7 +12,6 @@ func _ready() -> void:
 		if node.has_method("briefcase"):
 			objectiveAmount += 1
 			node.picked_up.connect(_on_briefcase_picked_up)
-	print(objectiveAmount)
 
 func load_next_level():
 	#EndLevelScreen.visible = true

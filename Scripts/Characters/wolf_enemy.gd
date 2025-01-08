@@ -24,3 +24,9 @@ func apply_gravity(delta):
 	if not is_on_floor():
 		velocity += get_gravity() * 1 * delta
 	
+	
+func _on_wolf_sprite_frame_changed() -> void:
+	var walk_frames = [1,3]
+	if sprite.animation == "idle": return
+	if sprite.animation == "jump": return
+	if sprite.frame in walk_frames: SoundPlayer.bark_effect()

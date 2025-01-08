@@ -10,13 +10,20 @@ enum entity_type_list {PLAYER, ENEMY, PICKUP, HAZARD}
 @export var Collision_Shape: CollisionShape2D
 
 func _ready() -> void:
+	call_deferred("connect_health_signals")
+	
+func connect_health_signals():
 	if Health:
 		Health.EntityKilled.connect(destroy_entity)
 		Health.EntityDamaged.connect(entity_damaged)
 		Health.EntityHealed.connect(entity_healed)
+		print("Signals connected successfully!")
 
 func destroy_entity():
+	if SoundPlayer:
+		SoundPlayer.death_effect()
 	rotate(240)
+	Hitbox.queue_free()
 	Collision_Shape.queue_free()
 	await get_tree().create_timer(0.5).timeout
 	queue_free()

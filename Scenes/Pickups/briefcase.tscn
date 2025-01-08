@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dijlaejud5ayq"]
+[gd_scene load_steps=12 format=3 uid="uid://dijlaejud5ayq"]
 
 [ext_resource type="Script" path="res://Scripts/Pickups/briefcase.gd" id="1_nuurp"]
 [ext_resource type="Texture2D" uid="uid://shjbuvyjk4a6" path="res://Assets/Sprites/briefcase.png" id="2_c20mq"]
+[ext_resource type="AudioStream" uid="uid://mwfvty1ju0dk" path="res://Assets/Sounds/pickupCase.wav" id="3_v1k0c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ika0l"]
 atlas = ExtResource("2_c20mq")
@@ -56,11 +57,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rgxnt"]
 size = Vector2(28, 24)
 
-[node name="Briefcase" type="StaticBody2D"]
+[node name="Briefcase" type="StaticBody2D" node_paths=PackedStringArray("PickupSound", "Sprite")]
 position = Vector2(0, -10)
 collision_layer = 8
 collision_mask = 2
 script = ExtResource("1_nuurp")
+PickupSound = NodePath("PickupSound")
+Sprite = NodePath("BriefcaseSprite")
 
 [node name="BriefcaseSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_a72pt")
@@ -75,5 +78,8 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
 position = Vector2(3, -18)
 shape = SubResource("RectangleShape2D_rgxnt")
+
+[node name="PickupSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_v1k0c")
 
 [connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]

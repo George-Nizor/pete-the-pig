@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c8nse4v5byrci"]
+[gd_scene load_steps=32 format=3 uid="uid://c8nse4v5byrci"]
 
 [ext_resource type="Texture2D" uid="uid://cxhh2l8cjex8w" path="res://Assets/Sprites/Idle.png" id="1_pob1h"]
 [ext_resource type="Script" path="res://Scripts/Characters/player.gd" id="1_rlafh"]
@@ -9,6 +9,11 @@
 [ext_resource type="Script" path="res://Scripts/Components/HitBox.gd" id="7_epej7"]
 [ext_resource type="Script" path="res://Scripts/Components/EffectsPlayer.gd" id="8_w2knv"]
 [ext_resource type="Script" path="res://Scripts/Components/SoundPlayer.gd" id="9_a4es4"]
+[ext_resource type="AudioStream" uid="uid://8nnm60mcr60m" path="res://Assets/Sounds/hit.wav" id="10_6jbeg"]
+[ext_resource type="AudioStream" uid="uid://detgp64m5lwql" path="res://Assets/Sounds/playerdeath.wav" id="11_33xap"]
+[ext_resource type="AudioStream" uid="uid://bbnh3kudmqcww" path="res://Assets/Sounds/jump.wav" id="12_ayd1w"]
+[ext_resource type="AudioStream" uid="uid://dgcaexkvj45sm" path="res://Assets/Sounds/double-jump.wav" id="13_1hi5y"]
+[ext_resource type="AudioStream" uid="uid://dinaxjopt4qux" path="res://Assets/Sounds/walk.wav" id="14_vkawr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mt645"]
 atlas = ExtResource("1_pob1h")
@@ -123,12 +128,12 @@ animations = [{
 size = Vector2(19, 39.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vdbxs"]
-size = Vector2(20, 28.75)
+size = Vector2(26.25, 28.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ducc5"]
-size = Vector2(20, 8.75)
+size = Vector2(15, 8.75)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_sprite", "coyote_jump_timer", "wall_jump_timer", "Health", "Hitbox", "Effects_Player", "SoundPlayer", "Collision_Shape")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_sprite", "coyote_jump_timer", "wall_jump_timer", "DamageTimer", "KnockbackTimer", "Health", "Hitbox", "Effects_Player", "SoundPlayer", "Collision_Shape")]
 position = Vector2(0, 1)
 scale = Vector2(0.8, 0.8)
 collision_layer = 2
@@ -137,6 +142,8 @@ player_sprite = NodePath("PlayerSprite")
 coyote_jump_timer = NodePath("CoyoteJumpTimer")
 wall_jump_timer = NodePath("WallJumpTimer")
 movement_data = ExtResource("2_86e13")
+DamageTimer = NodePath("DamageTimer")
+KnockbackTimer = NodePath("KnockbackTimer")
 Health = NodePath("PlayerHealth")
 Hitbox = NodePath("PlayerHitBox")
 Effects_Player = NodePath("EffectsPlayer")
@@ -147,10 +154,8 @@ Collision_Shape = NodePath("Player_Collision")
 texture_filter = 1
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_43xoh")
-animation = &"idle"
+animation = &"jump"
 autoplay = "idle"
-frame = 2
-frame_progress = 0.803067
 
 [node name="Player_Collision" type="CollisionShape2D" parent="."]
 position = Vector2(1.25, -21.125)
@@ -177,7 +182,7 @@ health_component = NodePath("../PlayerHealth")
 Entity = NodePath("..")
 
 [node name="HitBoxShape" type="CollisionShape2D" parent="PlayerHitBox"]
-position = Vector2(1.25, -25.625)
+position = Vector2(1.875, -25.625)
 shape = SubResource("RectangleShape2D_vdbxs")
 debug_color = Color(0.999714, 0, 0.10378, 0.42)
 
@@ -195,8 +200,36 @@ script = ExtResource("8_w2knv")
 sprite = NodePath("../PlayerSprite")
 Character = NodePath("..")
 
-[node name="SoundPlayer" type="Node" parent="."]
+[node name="SoundPlayer" type="Node" parent="." node_paths=PackedStringArray("hit_sound", "death_sound", "jump_sound", "double_jump_sound", "walk_sound")]
 script = ExtResource("9_a4es4")
+hit_sound = NodePath("HitSound")
+death_sound = NodePath("DeathSound")
+jump_sound = NodePath("JumpSound")
+double_jump_sound = NodePath("DoubleJumpSound")
+walk_sound = NodePath("WalkSound")
 
+[node name="HitSound" type="AudioStreamPlayer" parent="SoundPlayer"]
+stream = ExtResource("10_6jbeg")
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="SoundPlayer"]
+stream = ExtResource("11_33xap")
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="SoundPlayer"]
+stream = ExtResource("12_ayd1w")
+
+[node name="DoubleJumpSound" type="AudioStreamPlayer" parent="SoundPlayer"]
+stream = ExtResource("13_1hi5y")
+
+[node name="WalkSound" type="AudioStreamPlayer" parent="SoundPlayer"]
+stream = ExtResource("14_vkawr")
+
+[node name="DamageTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="KnockbackTimer" type="Timer" parent="."]
+
+[connection signal="frame_changed" from="PlayerSprite" to="." method="_on_player_sprite_frame_changed"]
 [connection signal="area_entered" from="PlayerHitBox" to="." method="_on_player_hit_box_area_entered"]
 [connection signal="area_entered" from="AttackBox" to="." method="_on_attack_box_area_entered"]
+[connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
+[connection signal="timeout" from="KnockbackTimer" to="." method="_on_knockback_timer_timeout"]
