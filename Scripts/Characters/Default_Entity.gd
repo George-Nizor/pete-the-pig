@@ -8,6 +8,7 @@ enum entity_type_list {PLAYER, ENEMY, PICKUP, HAZARD}
 @export var Effects_Player: EffectsPlayer
 @export var SoundPlayer: SoundPlayer
 @export var Collision_Shape: CollisionShape2D
+@export var DamageZone: DamageZone
 
 func _ready() -> void:
 	call_deferred("connect_health_signals")
@@ -23,8 +24,11 @@ func destroy_entity():
 	if SoundPlayer:
 		SoundPlayer.death_effect()
 	rotate(240)
+	scale = scale * 0.001
 	Hitbox.queue_free()
-	Collision_Shape.queue_free()
+	if DamageZone:
+		DamageZone.queue_free()
+	set_process(false)
 	await get_tree().create_timer(0.5).timeout
 	queue_free()
 	

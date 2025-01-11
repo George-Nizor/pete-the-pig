@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://khbeaqnbm51x"]
+
+[ext_resource type="Texture2D" uid="uid://bmy4yp27lhdl3" path="res://Assets/Sprites/prelim hud.png" id="1_j887j"]
+[ext_resource type="Script" path="res://Scripts/Globals/ingame_ui.gd" id="1_ui57c"]
+[ext_resource type="FontFile" uid="uid://clw4ys1yqiph6" path="res://Assets/MegamaxJonathanToo-YqOq2.ttf" id="2_lj2ou"]
+
+[node name="IngameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ui57c")
+
+[node name="Health1" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 26.0
+offset_right = 65.0
+offset_bottom = 33.0
+color = Color(1, 0, 0, 1)
+
+[node name="Health2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 26.0
+offset_right = 85.0
+offset_bottom = 33.0
+color = Color(1, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 7.0
+offset_right = 346.0
+offset_bottom = 198.0
+texture = ExtResource("1_j887j")
+
+[node name="retarded slash" type="Label" parent="."]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 31.7819
+offset_right = 168.0
+offset_bottom = 50.7819
+rotation = -1.04754
+scale = Vector2(2.80086, 2.77461)
+theme_override_fonts/font = ExtResource("2_lj2ou")
+text = "-"
+
+[node name="Objective" type="Label" parent="."]
+layout_mode = 0
+offset_left = 177.0
+offset_top = 22.7819
+offset_right = 236.0
+offset_bottom = 41.7819
+theme_override_fonts/font = ExtResource("2_lj2ou")
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 22.7819
+offset_right = 209.0
+offset_bottom = 41.7819
+theme_override_fonts/font = ExtResource("2_lj2ou")
+text = " "

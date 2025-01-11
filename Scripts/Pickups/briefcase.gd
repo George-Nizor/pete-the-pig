@@ -9,8 +9,9 @@ func briefcase():
 	
 func _on_pickup_area_body_entered(body: Node2D) -> void:
 	if body.has_method("Player"):
-		Sprite.queue_free()
-		PickupSound.play()
-		await get_tree().create_timer(PickupSound.stream.get_length()).timeout
-		picked_up.emit()
-		queue_free()
+		if is_instance_valid(Sprite):
+			Sprite.queue_free()
+			PickupSound.play()
+			await get_tree().create_timer(PickupSound.stream.get_length()).timeout
+			picked_up.emit()
+			queue_free()

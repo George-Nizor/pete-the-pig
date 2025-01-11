@@ -9,8 +9,10 @@ var direction = -1
 func Enemy():
 	pass
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	apply_gravity(delta)
+
+func _process(delta: float) -> void:
 	if ray_cast_right.is_colliding():
 		direction = -1
 		sprite.flip_h = false

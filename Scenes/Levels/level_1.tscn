@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://b2dhnt71cxd71"]
+[gd_scene load_steps=16 format=4 uid="uid://b2dhnt71cxd71"]
 
 [ext_resource type="Texture2D" uid="uid://ceayuv57erewk" path="res://Assets/tileset/oak_woods_tileset.png" id="1_od5qb"]
 [ext_resource type="Script" path="res://Scripts/Levels/level_1.gd" id="1_twb0n"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://7fow4rxld4ja" path="res://Scenes/Characters/wolf_enemy.tscn" id="8_5ds4h"]
 [ext_resource type="PackedScene" uid="uid://c1h633vvg2yem" path="res://Scenes/Hazards/bottom_bound.tscn" id="9_bsoyw"]
 [ext_resource type="AudioStream" uid="uid://xw487lcxt8a6" path="res://Assets/Sounds/Music/pete_pig_soundtrack_prelim.mp3" id="10_pc2kx"]
+[ext_resource type="PackedScene" uid="uid://khbeaqnbm51x" path="res://Scenes/ingame_ui.tscn" id="11_531sw"]
+[ext_resource type="Texture2D" uid="uid://bdeqo2g4apfbr" path="res://Assets/OWEN.jpg" id="12_rds62"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cpske"]
 texture = ExtResource("1_od5qb")
@@ -657,7 +659,7 @@ shape = SubResource("WorldBoundaryShape2D_x7cpm")
 
 [node name="LevelMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_pc2kx")
-volume_db = -6.71
+volume_db = -26.463
 autoplay = true
 parameters/looping = false
 
@@ -666,3 +668,13 @@ position = Vector2(392, 193)
 
 [node name="WolfEnemy2" parent="." instance=ExtResource("8_5ds4h")]
 position = Vector2(537, 193)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="IngameUI" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("11_531sw")]
+player = NodePath("../../Player")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1829, 171)
+scale = Vector2(0.180816, 0.15021)
+texture = ExtResource("12_rds62")

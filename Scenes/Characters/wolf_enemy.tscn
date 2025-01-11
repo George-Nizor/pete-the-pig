@@ -68,15 +68,15 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6y81w"]
-size = Vector2(20, 22)
+size = Vector2(20, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i4mof"]
 size = Vector2(20, 26.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_opqga"]
-size = Vector2(26, 27)
+size = Vector2(28, 33)
 
-[node name="WolfEnemy" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast_right", "ray_cast_left", "sprite", "Health", "Hitbox", "Effects_Player", "SoundPlayer", "Collision_Shape")]
+[node name="WolfEnemy" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast_right", "ray_cast_left", "sprite", "Health", "Hitbox", "Effects_Player", "SoundPlayer", "Collision_Shape", "DamageZone")]
 position = Vector2(0, -23)
 collision_layer = 4
 script = ExtResource("1_wmta0")
@@ -88,6 +88,7 @@ Hitbox = NodePath("WolfHitbox")
 Effects_Player = NodePath("EffectsPlayer")
 SoundPlayer = NodePath("SoundPlayer")
 Collision_Shape = NodePath("WolfCollision")
+DamageZone = NodePath("DamageZone")
 
 [node name="WolfSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tvngm")
@@ -107,7 +108,7 @@ health_component = NodePath("../WolfHealth")
 Entity = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WolfHitbox"]
-position = Vector2(-0.999992, -10)
+position = Vector2(-0.999982, -7)
 rotation = 3.14159
 shape = SubResource("RectangleShape2D_6y81w")
 debug_color = Color(0.913382, 0.290596, 0.067143, 0.42)
@@ -131,7 +132,7 @@ script = ExtResource("6_lrair")
 damage = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageZone"]
-position = Vector2(0, 9.5)
+position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_opqga")
 debug_color = Color(0, 0.627627, 0.500104, 0.42)
 

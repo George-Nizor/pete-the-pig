@@ -154,7 +154,7 @@ Collision_Shape = NodePath("Player_Collision")
 texture_filter = 1
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_43xoh")
-animation = &"jump"
+animation = &"run"
 autoplay = "idle"
 
 [node name="Player_Collision" type="CollisionShape2D" parent="."]
@@ -171,7 +171,7 @@ one_shot = true
 
 [node name="PlayerHealth" type="Node2D" parent="." node_paths=PackedStringArray("Entity")]
 script = ExtResource("6_b4yad")
-Max_Health = 300
+Max_Health = 200
 Entity = NodePath("..")
 
 [node name="PlayerHitBox" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "Entity")]
@@ -219,14 +219,17 @@ stream = ExtResource("12_ayd1w")
 
 [node name="DoubleJumpSound" type="AudioStreamPlayer" parent="SoundPlayer"]
 stream = ExtResource("13_1hi5y")
+volume_db = -0.475
 
 [node name="WalkSound" type="AudioStreamPlayer" parent="SoundPlayer"]
 stream = ExtResource("14_vkawr")
 
 [node name="DamageTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.8
 
 [node name="KnockbackTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
 
 [connection signal="frame_changed" from="PlayerSprite" to="." method="_on_player_sprite_frame_changed"]
 [connection signal="area_entered" from="PlayerHitBox" to="." method="_on_player_hit_box_area_entered"]
