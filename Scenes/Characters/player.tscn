@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://c8nse4v5byrci"]
+[gd_scene load_steps=37 format=3 uid="uid://c8nse4v5byrci"]
 
 [ext_resource type="Texture2D" uid="uid://cxhh2l8cjex8w" path="res://Assets/Sprites/Idle.png" id="1_pob1h"]
 [ext_resource type="Script" path="res://Scripts/Characters/player.gd" id="1_rlafh"]
@@ -14,6 +14,11 @@
 [ext_resource type="AudioStream" uid="uid://bbnh3kudmqcww" path="res://Assets/Sounds/jump.wav" id="12_ayd1w"]
 [ext_resource type="AudioStream" uid="uid://dgcaexkvj45sm" path="res://Assets/Sounds/double-jump.wav" id="13_1hi5y"]
 [ext_resource type="AudioStream" uid="uid://dinaxjopt4qux" path="res://Assets/Sounds/walk.wav" id="14_vkawr"]
+[ext_resource type="Script" path="res://Scripts/Components/StateMachine/StateMachine.gd" id="15_hnre1"]
+[ext_resource type="Script" path="res://Scripts/Components/StateMachine/PlayerStates/playerIdle.gd" id="16_w2g3c"]
+[ext_resource type="Script" path="res://Scripts/Components/StateMachine/PlayerStates/playerRunning.gd" id="17_sgs5w"]
+[ext_resource type="Script" path="res://Scripts/Components/StateMachine/PlayerStates/playerJumping.gd" id="18_umryu"]
+[ext_resource type="Script" path="res://Scripts/Components/StateMachine/PlayerStates/playerFalling.gd" id="19_565ng"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mt645"]
 atlas = ExtResource("1_pob1h")
@@ -230,6 +235,26 @@ wait_time = 0.8
 [node name="KnockbackTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("15_hnre1")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("Player")]
+script = ExtResource("16_w2g3c")
+Player = NodePath("../..")
+
+[node name="Running" type="Node" parent="StateMachine" node_paths=PackedStringArray("Player")]
+script = ExtResource("17_sgs5w")
+Player = NodePath("../..")
+
+[node name="Jumping" type="Node" parent="StateMachine" node_paths=PackedStringArray("Player")]
+script = ExtResource("18_umryu")
+Player = NodePath("../..")
+
+[node name="Falling" type="Node" parent="StateMachine" node_paths=PackedStringArray("Player")]
+script = ExtResource("19_565ng")
+Player = NodePath("../..")
 
 [connection signal="frame_changed" from="PlayerSprite" to="." method="_on_player_sprite_frame_changed"]
 [connection signal="area_entered" from="PlayerHitBox" to="." method="_on_player_hit_box_area_entered"]

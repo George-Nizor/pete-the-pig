@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://cuk8dj7nrg4ce"]
+
+[ext_resource type="Script" path="res://Scenes/Levels/end_level_screen.gd" id="1_j2o63"]
+[ext_resource type="FontFile" uid="uid://clw4ys1yqiph6" path="res://Assets/MegamaxJonathanToo-YqOq2.ttf" id="1_rb7r0"]
+[ext_resource type="Texture2D" uid="uid://bdeqo2g4apfbr" path="res://Assets/OWEN.jpg" id="2_lu5fl"]
+
+[node name="EndLevelScreen" type="Control" node_paths=PackedStringArray("text_label", "text_background")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j2o63")
+text_label = NodePath("CenterContainer/RichTextLabel")
+text_background = NodePath("TextureRect")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 376.0
+offset_bottom = 577.0
+scale = Vector2(1.70544, 0.621121)
+texture = ExtResource("2_lu5fl")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="Label" parent="CenterContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_rb7r0")
+theme_override_font_sizes/font_size = 45
+horizontal_alignment = 1
+visible_characters = 0
+visible_ratio = 0.0

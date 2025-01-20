@@ -9,6 +9,9 @@ func add_score(amount):
 func reset_score():
 	CURRENT_SCORE = 0
 	
+func reload_scene():
+	await get_tree().create_timer(3).timeout
+	get_tree().reload_current_scene()
 	
 
 	

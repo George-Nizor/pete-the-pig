@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://x1aw6a01jsn2"]
+
+[ext_resource type="Texture2D" uid="uid://fbdwrjtj32vb" path="res://Assets/tileset/spikes.png" id="1_myohy"]
+[ext_resource type="PackedScene" uid="uid://bapgdtwx8nje6" path="res://Scenes/Hazards/damage_zone.tscn" id="2_gijk0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qdibn"]
+size = Vector2(16, 9)
+
+[node name="Spikes" type="Sprite2D"]
+scale = Vector2(1, 2)
+texture = ExtResource("1_myohy")
+
+[node name="Damage_Zone" parent="." instance=ExtResource("2_gijk0")]
+damage = 300
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Zone"]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_qdibn")

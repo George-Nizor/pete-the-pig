@@ -4,7 +4,8 @@ extends Node
 var objectiveAmount: int
 @export var LevelNumber: int
 @export var NextLevel: PackedScene
-@export var EndLevelScreen: Control
+@export var end_level_screen: EndLevelScreen
+var EndLevelText: String
 
 func _ready() -> void:
 	var children = get_node('Briefcases').get_children()
@@ -14,8 +15,8 @@ func _ready() -> void:
 			node.picked_up.connect(_on_briefcase_picked_up)
 
 func load_next_level():
-	#EndLevelScreen.visible = true
-	await get_tree().create_timer(5)
+	end_level_screen.reveal_screen()
+	await get_tree().create_timer(5).timeout
 	get_tree().change_scene_to_packed(NextLevel)
 	pass
 

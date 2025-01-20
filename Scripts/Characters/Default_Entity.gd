@@ -24,7 +24,6 @@ func destroy_entity():
 	if SoundPlayer:
 		SoundPlayer.death_effect()
 	rotate(240)
-	scale = scale * 0.001
 	Hitbox.queue_free()
 	if DamageZone:
 		DamageZone.queue_free()

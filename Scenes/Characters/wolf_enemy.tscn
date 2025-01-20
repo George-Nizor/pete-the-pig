@@ -141,7 +141,7 @@ script = ExtResource("7_74ucv")
 sprite = NodePath("../WolfSprite")
 Character = NodePath("..")
 
-[node name="SoundPlayer" type="Node" parent="." node_paths=PackedStringArray("hit_sound", "death_sound", "bark_sound")]
+[node name="SoundPlayer" type="Node2D" parent="." node_paths=PackedStringArray("hit_sound", "death_sound", "bark_sound")]
 script = ExtResource("8_2hfhy")
 hit_sound = NodePath("HitSound")
 death_sound = NodePath("DeathSound")
@@ -155,5 +155,7 @@ stream = ExtResource("10_iigux")
 
 [node name="BarkSound" type="AudioStreamPlayer2D" parent="SoundPlayer"]
 stream = ExtResource("11_3qxlo")
+max_distance = 900.0
+panning_strength = 2.04
 
 [connection signal="frame_changed" from="WolfSprite" to="." method="_on_wolf_sprite_frame_changed"]

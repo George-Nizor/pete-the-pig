@@ -54,8 +54,7 @@ func _physics_process(delta):
 		_knockback(knockback_direction,delta)
 	else:
 		apply_gravity(delta)
-		handle_wall_jump()
-		handle_jump()
+		
 		var input_axis = Input.get_axis("move_left", "move_right")
 		handle_camera(input_axis)
 		handle_acceleration(input_axis, delta)
@@ -75,6 +74,8 @@ func _physics_process(delta):
 		if just_left_wall:
 			wall_jump_timer.start()
 		update_animations(input_axis)
+		handle_wall_jump()
+		handle_jump()
 
 func handle_camera(input_axis):
 	if camera_2d:
@@ -112,7 +113,7 @@ func handle_jump():
 			velocity.y = movement_data.jump_velocity
 			coyote_jump_timer.stop()
 	elif not is_on_floor():
-		if Input.is_action_just_released("jump") and velocity.y < movement_data.jump_velocity / 2:
+		if Input.is_action_just_released('jump') and velocity.y < movement_data.jump_velocity / 2:
 			velocity.y = movement_data.jump_velocity / 2
 		
 		if Input.is_action_just_pressed("jump") and air_jump and not just_wall_jumped:
@@ -201,5 +202,7 @@ func _on_player_sprite_frame_changed() -> void:
 func destroy_entity():
 	super()
 	camera_2d.reparent(get_parent())
-	print(camera_2d.get_parent())
+	EventManager.reset_score()
+	EventManager.reload_scene()
+
 	
