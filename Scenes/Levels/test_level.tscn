@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bpwb78uo5yk7t"]
+[gd_scene load_steps=6 format=3 uid="uid://bpwb78uo5yk7t"]
 
 [ext_resource type="Script" path="res://Scripts/Levels/test_level.gd" id="1_aovk1"]
 [ext_resource type="PackedScene" uid="uid://c8nse4v5byrci" path="res://Scenes/Characters/player.tscn" id="2_4qgrf"]
+[ext_resource type="PackedScene" uid="uid://dx5dn6edqn44f" path="res://Scenes/main_menu.tscn" id="2_15q3n"]
+[ext_resource type="PackedScene" uid="uid://dijlaejud5ayq" path="res://Scenes/Pickups/briefcase.tscn" id="4_6kflu"]
+[ext_resource type="PackedScene" uid="uid://khbeaqnbm51x" path="res://Scenes/ingame_ui.tscn" id="5_48p8l"]
 
 [node name="Test_Level" type="Node2D"]
 script = ExtResource("1_aovk1")
+NextLevel = ExtResource("2_15q3n")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
@@ -23,3 +27,13 @@ process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
+
+[node name="Briefcases" type="Node" parent="."]
+
+[node name="Briefcase" parent="Briefcases" instance=ExtResource("4_6kflu")]
+position = Vector2(216, -16)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="IngameUI" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("5_48p8l")]
+player = NodePath("../../Player")

@@ -12,7 +12,9 @@ func _ready():
 	text_background.modulate.a = 0.0
 
 func reveal_screen():
-	text_label.text = "Wow Pete \n you got that Mula!"
+	#"Wow Pete \n you got that Mula!"
+	display_text = level.EndLevelText
+	text_label.text = display_text
 	# Create a new tween
 	print(display_text)
 	var tween = create_tween()

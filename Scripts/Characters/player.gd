@@ -179,7 +179,7 @@ func player_above(area):
 func _on_attack_box_area_entered(area: Area2D) -> void:
 	if can_take_damage:
 		if area.Entity.has_method("Enemy"):
-			if player_above(area):
+			if player_above(area) and velocity.y >= 1:
 				area.Entity.Health.ReduceHealth(damage)
 				bounce()
 
@@ -200,9 +200,13 @@ func _on_player_sprite_frame_changed() -> void:
 
 
 func destroy_entity():
+	EventManager.player_dying_status = true
+	print(EventManager.player_dying_status)
 	super()
 	camera_2d.reparent(get_parent())
 	EventManager.reset_score()
 	EventManager.reload_scene()
+	
+	print(EventManager.player_dying_status)
 
 	

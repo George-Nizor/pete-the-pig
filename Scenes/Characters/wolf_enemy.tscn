@@ -68,7 +68,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6y81w"]
-size = Vector2(20, 16)
+size = Vector2(40, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i4mof"]
 size = Vector2(20, 26.5)
@@ -108,7 +108,7 @@ health_component = NodePath("../WolfHealth")
 Entity = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WolfHitbox"]
-position = Vector2(-0.999982, -7)
+position = Vector2(2.06232e-05, -7)
 rotation = 3.14159
 shape = SubResource("RectangleShape2D_6y81w")
 debug_color = Color(0.913382, 0.290596, 0.067143, 0.42)
@@ -155,6 +155,7 @@ stream = ExtResource("10_iigux")
 
 [node name="BarkSound" type="AudioStreamPlayer2D" parent="SoundPlayer"]
 stream = ExtResource("11_3qxlo")
+volume_db = -5.986
 max_distance = 900.0
 panning_strength = 2.04
 

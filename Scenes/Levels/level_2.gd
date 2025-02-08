@@ -2,5 +2,5 @@ extends Level
 
 func _ready() -> void:
 	super()
-	EndLevelText = "Wow Pete \n you got that Mula!"
+	EndLevelText = "Holy fuck... \n nice Moves!"
 	print(EndLevelText)

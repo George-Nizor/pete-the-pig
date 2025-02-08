@@ -136,7 +136,7 @@ size = Vector2(19, 39.75)
 size = Vector2(26.25, 28.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ducc5"]
-size = Vector2(15, 8.75)
+size = Vector2(33.75, 8.75)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_sprite", "coyote_jump_timer", "wall_jump_timer", "DamageTimer", "KnockbackTimer", "Health", "Hitbox", "Effects_Player", "SoundPlayer", "Collision_Shape")]
 position = Vector2(0, 1)
@@ -196,7 +196,7 @@ collision_layer = 0
 collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
-position = Vector2(1.25, -6.25)
+position = Vector2(1.875, -6.25)
 shape = SubResource("RectangleShape2D_ducc5")
 debug_color = Color(0.159258, 0.637094, 0.289732, 0.42)
 
@@ -221,10 +221,11 @@ stream = ExtResource("11_33xap")
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="SoundPlayer"]
 stream = ExtResource("12_ayd1w")
+volume_db = -7.172
 
 [node name="DoubleJumpSound" type="AudioStreamPlayer" parent="SoundPlayer"]
 stream = ExtResource("13_1hi5y")
-volume_db = -0.475
+volume_db = -5.496
 
 [node name="WalkSound" type="AudioStreamPlayer" parent="SoundPlayer"]
 stream = ExtResource("14_vkawr")
