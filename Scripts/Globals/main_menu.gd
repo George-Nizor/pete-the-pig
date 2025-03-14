@@ -3,7 +3,7 @@ extends Control
 
 func _ready() -> void:
 	EventManager.speedrun_time = 0
-	best_time.text = "Best Time: " + str(EventManager.best_time)
+	best_time.text = "Best Time: " + str(EventManager.format_seconds_to_hhmmss(EventManager.best_time))
 	print(EventManager.best_time)
 	
 
