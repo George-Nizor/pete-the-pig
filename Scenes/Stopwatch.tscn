@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bhesortwk8kow"]
 
-[ext_resource type="Script" path="res://Scenes/stopwatch.gd" id="1_mot3v"]
+[ext_resource type="Script" uid="uid://drjsx2by70lad" path="res://Scenes/stopwatch.gd" id="1_mot3v"]
 [ext_resource type="FontFile" uid="uid://clw4ys1yqiph6" path="res://Assets/MegamaxJonathanToo-YqOq2.ttf" id="1_w142p"]
 
 [node name="Stopwatch" type="Label"]

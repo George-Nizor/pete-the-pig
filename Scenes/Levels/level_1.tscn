@@ -1,7 +1,7 @@
 [gd_scene load_steps=34 format=4 uid="uid://b2dhnt71cxd71"]
 
 [ext_resource type="Texture2D" uid="uid://ceayuv57erewk" path="res://Assets/tileset/oak_woods_tileset.png" id="1_od5qb"]
-[ext_resource type="Script" path="res://Scripts/Levels/level_1.gd" id="1_twb0n"]
+[ext_resource type="Script" uid="uid://dhnsar8faem80" path="res://Scripts/Levels/level_1.gd" id="1_twb0n"]
 [ext_resource type="PackedScene" uid="uid://c8nse4v5byrci" path="res://Scenes/Characters/player.tscn" id="2_ci7bd"]
 [ext_resource type="PackedScene" uid="uid://cq6fe8x7ggyet" path="res://Scenes/Levels/level_2.tscn" id="2_tsw72"]
 [ext_resource type="Texture2D" uid="uid://btrxcd852jr8j" path="res://Assets/tileset/background_layer_3.png" id="3_5w0dd"]
@@ -956,8 +956,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n6isa"]
 _data = {
-"Move": SubResource("Animation_h56yq"),
-"RESET": SubResource("Animation_ssyox")
+&"Move": SubResource("Animation_h56yq"),
+&"RESET": SubResource("Animation_ssyox")
 }
 
 [sub_resource type="Animation" id="Animation_33d2h"]
@@ -994,8 +994,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v4bny"]
 _data = {
-"Move": SubResource("Animation_33d2h"),
-"RESET": SubResource("Animation_wt06y")
+&"Move": SubResource("Animation_33d2h"),
+&"RESET": SubResource("Animation_wt06y")
 }
 
 [sub_resource type="Animation" id="Animation_lkokf"]
@@ -1032,8 +1032,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pi7qq"]
 _data = {
-"Move": SubResource("Animation_lkokf"),
-"RESET": SubResource("Animation_52q5j")
+&"Move": SubResource("Animation_lkokf"),
+&"RESET": SubResource("Animation_52q5j")
 }
 
 [node name="Level1" type="Node2D" node_paths=PackedStringArray("end_level_screen")]
@@ -1253,7 +1253,7 @@ scale = Vector2(2, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/Platform"]
 libraries = {
-"": SubResource("AnimationLibrary_n6isa")
+&"": SubResource("AnimationLibrary_n6isa")
 }
 autoplay = "Move"
 
@@ -1263,7 +1263,7 @@ scale = Vector2(2, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/Platform2"]
 libraries = {
-"": SubResource("AnimationLibrary_v4bny")
+&"": SubResource("AnimationLibrary_v4bny")
 }
 autoplay = "Move"
 
@@ -1273,7 +1273,7 @@ scale = Vector2(2, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/Platform3"]
 libraries = {
-"": SubResource("AnimationLibrary_pi7qq")
+&"": SubResource("AnimationLibrary_pi7qq")
 }
 autoplay = "Move"
 

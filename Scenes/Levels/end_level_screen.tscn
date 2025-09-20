@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cuk8dj7nrg4ce"]
 
-[ext_resource type="Script" path="res://Scenes/Levels/end_level_screen.gd" id="1_j2o63"]
+[ext_resource type="Script" uid="uid://bs1jdwao33gvi" path="res://Scenes/Levels/end_level_screen.gd" id="1_j2o63"]
 [ext_resource type="FontFile" uid="uid://clw4ys1yqiph6" path="res://Assets/MegamaxJonathanToo-YqOq2.ttf" id="1_rb7r0"]
 [ext_resource type="Texture2D" uid="uid://bdeqo2g4apfbr" path="res://Assets/OWEN.jpg" id="2_lu5fl"]
 

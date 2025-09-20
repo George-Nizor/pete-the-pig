@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c1h633vvg2yem"]
 
-[ext_resource type="Script" path="res://Scripts/Hazards/BottomBound.gd" id="1_3d3l7"]
+[ext_resource type="Script" uid="uid://bbt3g4ej47v7e" path="res://Scripts/Hazards/BottomBound.gd" id="1_3d3l7"]
 
 [node name="BottomBound" type="Area2D"]
 script = ExtResource("1_3d3l7")

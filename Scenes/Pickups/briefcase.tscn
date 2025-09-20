@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://dijlaejud5ayq"]
 
-[ext_resource type="Script" path="res://Scripts/Pickups/briefcase.gd" id="1_nuurp"]
+[ext_resource type="Script" uid="uid://bk7owlsqdlkfm" path="res://Scripts/Pickups/briefcase.gd" id="1_nuurp"]
 [ext_resource type="Texture2D" uid="uid://shjbuvyjk4a6" path="res://Assets/Sprites/briefcase.png" id="2_c20mq"]
 [ext_resource type="AudioStream" uid="uid://mwfvty1ju0dk" path="res://Assets/Sounds/pickupCase.wav" id="3_v1k0c"]
 

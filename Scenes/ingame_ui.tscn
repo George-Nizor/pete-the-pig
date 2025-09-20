@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://khbeaqnbm51x"]
 
 [ext_resource type="Texture2D" uid="uid://bmy4yp27lhdl3" path="res://Assets/Sprites/prelim hud.png" id="1_j887j"]
-[ext_resource type="Script" path="res://Scripts/Globals/ingame_ui.gd" id="1_ui57c"]
+[ext_resource type="Script" uid="uid://coul582i2d7bn" path="res://Scripts/Globals/ingame_ui.gd" id="1_ui57c"]
 [ext_resource type="FontFile" uid="uid://clw4ys1yqiph6" path="res://Assets/MegamaxJonathanToo-YqOq2.ttf" id="2_lj2ou"]
 [ext_resource type="PackedScene" uid="uid://bhesortwk8kow" path="res://Scenes/Stopwatch.tscn" id="4_my8x3"]
 
